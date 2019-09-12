@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
+    <title>Algoritmo del Banquero</title>
+</head>
+<body>
+    <div class="wrap">
+        <h1 class="heading-1">Algoritmo del Banquero</h1>
+
+        <form id="init">
+            <div class="group">
+                <label for="procesos" class="group__label">Cantidad de procesos:</label>
+                <input type="number" placeholder="0" min="0" id="procesos" class="group__input" />
+            </div>
+
+            <div class="group">
+                <label for="recursos" class="group__label">Cantidad de recursos:</label>
+                <input type="number" placeholder="0" min="0" id="recursos" class="group__input" />
+            </div>
+
+            <button type="submit" class="btn btn--init">Generar matrices iniciales</button>
+        </form>
+
+        <form id="matrices-iniciales"></form>
+
+        <form id="matrices-calculables" class="hidden"></form>
+
+        <p class="camino-seguro hidden">Camino seguro: < <span></span> ></p>
+
+        <button type="button" class="btn btn--reset">Reiniciar</button>
+    </div>
+</body>
+</html>
