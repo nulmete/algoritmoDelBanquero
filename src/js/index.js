@@ -22,8 +22,8 @@ const matricesCalculables = ['necesidad', 'disponibilidad'];
 const initForm = document.querySelector('#init');
 const initBtn = initForm.querySelector('.btn');
 const resetBtn = document.querySelector('.btn--reset');
-const matricesInicialesForm = document.querySelector('#matrices-iniciales');
-const matricesCalculablesForm = document.querySelector('#matrices-calculables');
+const matricesInicialesForm = document.querySelector('.matrices-iniciales');
+const matricesCalculablesForm = document.querySelector('.matrices-calculables');
 const inputProcesos = document.querySelector('#procesos');
 const inputRecursos = document.querySelector('#recursos');
 const caminoSeguro = document.querySelector('.camino-seguro');
@@ -50,16 +50,18 @@ function cargarEventListeners() {
 function inicializarMatrices(event) {
     event.preventDefault();
 
-    matricesInicialesForm.innerHTML = '';
+    matricesInicialesForm.classList.remove('hidden');
 
     // Guardar cantidad de procesos y recursos ingresados en el objeto estado
     estado.cantidadProcesos = parseInt(inputProcesos.value);
     estado.cantidadRecursos = parseInt(inputRecursos.value);
 
+    // Mostrar matrices iniciales
     for (let matriz of matricesIniciales) {
         mostrarMatriz(estado.cantidadProcesos, estado.cantidadRecursos, matriz, matricesInicialesForm);
     }
 
+    // Insertar botón para Calcular las "Matrices Calculables"
     const btnCalc = '<button type="submit" class="btn">Calcular matrices</button>';
     matricesInicialesForm.insertAdjacentHTML('beforeend', btnCalc);
     
@@ -72,10 +74,10 @@ function inicializarMatrices(event) {
 function calcularMatrices(event) {
     event.preventDefault();
 
-    matricesCalculablesForm.innerHTML = '';
     matricesCalculablesForm.classList.remove('hidden');
     caminoSeguro.classList.remove('hidden');
 
+    // Mostrar matrices calculables
     for (let matriz of matricesCalculables) {
         mostrarMatriz(estado.cantidadProcesos, estado.cantidadRecursos, matriz, matricesCalculablesForm);
     }
@@ -108,12 +110,15 @@ function calcularMatrices(event) {
         elem.value = valoresRecursos[index] - sumaColumnasAsignacion[index];
     });    
 
+    // Insertar botón para calcular el "Camino Seguro"
     const btnCamino = '<button type="submit" class="btn">Calcular camino seguro</button>';
     matricesCalculablesForm.insertAdjacentHTML('beforeend', btnCamino);
 
+    // Deshabilitar boton para calcular matrices
     const btnCalc = matricesInicialesForm.querySelector('.btn');
     btnCalc.setAttribute('disabled', '');
 
+    // Deshabilitar inputs para calcular matrices
     const inputsMatricesIniciales = [...inputsMaxima, ...inputsAsignacion, ...inputsRecursos];
     inputsMatricesIniciales.forEach(input => {
         input.setAttribute('disabled', '');
@@ -259,6 +264,7 @@ function mapearValoresEnteros(array) {
     return array.map(elem => parseInt(elem.value));
 }
 
+// Restar 2 matrices
 function restarMatrices(a, b) {
     const inputsA = Array.from(document.querySelectorAll(`#${a} input`));
     const inputsB = Array.from(document.querySelectorAll(`#${b} input`));
@@ -273,6 +279,7 @@ function restarMatrices(a, b) {
     return resultado;
 }
 
+// Sumar columnas de una matriz
 function sumarColumnas(matriz) {
     let sumaColumnas = [];
 
@@ -290,6 +297,8 @@ function sumarColumnas(matriz) {
     return sumaColumnas;
 }
 
+// Si hay camino seguro, mostrar cuáles son los procesos que lo componen
+// Si no hay camino seguro, mostrar "No hay camino seguro"
 function mostrarCaminoSeguro(bool) {
     const procesos = estado.caminoSeguro;
     const markup = (!bool) ? 'No hay camino seguro' : procesos.map(elem => `P${elem + 1}`);

@@ -119,8 +119,8 @@ input[type="number"] {
     }
 }
 
-#matrices-iniciales,
-#matrices-calculables {
+.matrices-iniciales,
+.matrices-calculables {
     display: grid;
     grid-row-gap: 2rem;
     justify-items: center;
@@ -129,11 +129,12 @@ input[type="number"] {
         grid-column: 1 / -1;
     }
 }
-#matrices-iniciales {
+
+.matrices-iniciales {
     grid-template-columns: repeat(3, 1fr);
 }
 
-#matrices-calculables {
+.matrices-calculables {
     grid-template-columns: repeat(2, 1fr);
 }
 
